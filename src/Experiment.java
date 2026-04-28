@@ -29,14 +29,25 @@ public class Experiment {
         int[] sizes = {10, 100, 1007};
 
         for (int size : sizes) {
-            int[] arr = sorter.generateRandomArray(size);
-            long basicTime = measureSortTime(arr, "Basic");
-            long advancedTime = measureSortTime(arr, "Advanced");
-            long searchTime = measureSearchTime(arr, arr[size / 2]);
+            int[] random = sorter.generateRandomArray(size);
+            int[] sorted = Arrays.copyOf(random, random.length);
+            sorter.quickSort(random, 0, random.length - 1);
+
             System.out.println("Array size: " + size);
-            System.out.println("Bubble Sort time: " + basicTime + " ns");
-            System.out.println("Quick Sort time: " + advancedTime + " ns");
-            System.out.println("Binary Search time: " + searchTime + " ns");
+            System.out.println("-".repeat(30));
+            System.out.println("Random Array");
+            System.out.println("-".repeat(30));
+            System.out.println("Bubble Sort: " + measureSortTime(random, "Basic" + "ns"));
+            System.out.println("Quick Sort: " + measureSortTime(random, "Advanced" + "ns"));
+            System.out.println("Binary Search: " + measureSearchTime(random, random[size / 2]) + "ns");
+
+            System.out.println("-".repeat(30));
+            System.out.println("Sorted Array");
+            System.out.println("-".repeat(30));
+            System.out.println("Bubble Sort time: " + measureSortTime(sorted, "Basic" + "ns"));
+            System.out.println("Quick Sort time: " + measureSortTime(sorted, "Advanced" + "ns"));
+            System.out.println("Binary Search time: " + measureSearchTime(sorted, sorted[size / 2]) + "ns");
+            System.out.println();
         }
     }
 }
